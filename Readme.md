@@ -1,12 +1,15 @@
-MARKETING REPORT
+<h2>MARKETING REPORT</h2>
 GOLANG (GIN) MICROSERVICE - MYSQL
-Struktur files
+<br>Struktur files
 
 ```sh
 markerting-report/
 ├── main.go
 ├── config/
 │   └── config.go
+├── db/
+│   └── migration/
+│       └── migration.sql
 ├── models/
 │   ├── marketing.go
 │   ├── penjualan.go
