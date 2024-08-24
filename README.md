@@ -22,3 +22,12 @@ markerting-report/
 │   └── pembayaran.go
 └── utils/
     └── response.go
+
+
+## Struktur File
+
+Install Standalone service di localhost
+
+```sh
+
+go run main.go
