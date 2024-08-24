@@ -1,6 +1,11 @@
 <h2>MARKETING REPORT</h2>
 GOLANG (GIN) MICROSERVICE - MYSQL
-<br>Struktur files
+<br>
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Struktur files](#Struktur files)
+<br>#Struktur files
 
 ```sh
 markerting-report/
