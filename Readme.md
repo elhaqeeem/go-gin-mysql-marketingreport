@@ -2,6 +2,7 @@ MARKETING REPORT
 GOLANG (GIN) MICROSERVICE - MYSQL
 Struktur files
 
+```sh
 markerting-report/
 ├── main.go
 ├── config/
