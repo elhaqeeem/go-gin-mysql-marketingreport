@@ -2,25 +2,26 @@
 GOLANG (GIN) MICROSERVICE - MYSQL
 <br>
 
-## Struktur File
+```go
+# Struktur File
 
-```sh
-markerting-report/
+```
+    ```sh
+    markerting-report/
 
-├── main.go
-├── config/
-│   └── config.go
-├── db/
-│   └── migration/
-│       └── migration.sql
-├── models/
-│   ├── marketing.go
-│   ├── penjualan.go
-│   └── pembayaran.go
-│   └── komisi.go
-├── handlers/
-│   ├── komisi.go
-│   └── pembayaran.go
-└── utils/
-    └── response.go
- 
+    ├── main.go
+    ├── config/
+    │   └── config.go
+    ├── db/
+    │   └── migration/
+    │       └── migration.sql
+    ├── models/
+    │   ├── marketing.go
+    │   ├── penjualan.go
+    │   └── pembayaran.go
+    │   └── komisi.go
+    ├── handlers/
+    │   ├── komisi.go
+    │   └── pembayaran.go
+    └── utils/
+        └── response.go
