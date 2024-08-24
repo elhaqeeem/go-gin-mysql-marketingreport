@@ -24,10 +24,13 @@ markerting-report/
     └── response.go
 
 
-## Struktur File
+## Usage
 
 Install Standalone service di localhost
 
 ```sh
 
 go run main.go
+
+
+## Usage
