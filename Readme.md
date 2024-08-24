@@ -4,8 +4,9 @@ GOLANG (GIN) MICROSERVICE - MYSQL
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-- [Struktur files](#Struktur files)
-<br>#Struktur files
+
+
+## Installation
 
 ```sh
 markerting-report/
