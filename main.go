@@ -29,7 +29,11 @@ func main() {
 	r.GET("/komisi", handlers.GetKomisi(db))
 	r.POST("/pembayaran", handlers.CreatePembayaran(db))
 	r.GET("/pembayaran", handlers.GetPembayaran(db))
-
+	// Marketing CRUD routes
+	r.POST("/marketing", handlers.CreateMarketing(db))
+	r.GET("/marketing/:id", handlers.GetMarketing(db))
+	r.PUT("/marketing/:id", handlers.UpdateMarketing(db))
+	r.DELETE("/marketing/:id", handlers.DeleteMarketing(db))
 	// Start the server
 	r.Run(":8080")
 }
