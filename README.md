@@ -24,13 +24,17 @@ markerting-report/
     └── response.go
 
 
-## Usage
 
-Install Standalone service di localhost
+## Prerequisites
 
-```sh
+Before running this project, ensure you have the following installed:
 
-go run main.go
+- [Go](https://golang.org/dl/)
+- [Node.js](https://nodejs.org/) (includes npm)
 
+## Backend Setup
 
-## Usage
+1. Navigate to the backend directory:
+
+   ```bash
+   cd go-backend
