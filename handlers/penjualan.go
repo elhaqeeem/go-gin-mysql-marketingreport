@@ -6,23 +6,32 @@ import (
 	"net/http"
 
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/models"
+	"github.com/elhaqeeem/go-gin-mysql-marketingreport/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
-// CreatePenjualan creates a new Penjualan record
+// CreatePenjualan creates a new penjualan record
 func CreatePenjualan(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var penjualan models.Penjualan
-		if err := c.ShouldBindJSON(&penjualan); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		var p models.Penjualan
+		if err := c.BindJSON(&p); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		_, err := db.Exec(`
-            INSERT INTO Penjualan (transaction_number, marketing_id, date, cargo_fee, total_balance, grand_total)
+		// Generate a new transaction number
+		transactionNumber, err := utils.GenerateTransactionNumber(db)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		p.TransactionNumber = transactionNumber
+
+		_, err = db.Exec(`
+            INSERT INTO Penjualan (TransactionNumber, MarketingID, Date, CargoFee, TotalBalance, GrandTotal)
             VALUES (?, ?, ?, ?, ?, ?)`,
-			penjualan.TransactionNumber, penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.GrandTotal,
+			p.TransactionNumber, p.MarketingID, p.Date, p.CargoFee, p.TotalBalance, p.GrandTotal,
 		)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -39,7 +48,7 @@ func GetPenjualan(db *sql.DB) gin.HandlerFunc {
 		id := c.Param("id")
 		var penjualan models.Penjualan
 		row := db.QueryRow(`
-            SELECT id, transaction_number, marketing_id, date, cargo_fee, total_balance, grand_total
+            SELECT id, TransactionNumber, MarketingID, Date, CargoFee, TotalBalance, GrandTotal
             FROM Penjualan WHERE id = ?`, id)
 
 		err := row.Scan(&penjualan.ID, &penjualan.TransactionNumber, &penjualan.MarketingID, &penjualan.Date, &penjualan.CargoFee, &penjualan.TotalBalance, &penjualan.GrandTotal)
@@ -67,7 +76,7 @@ func UpdatePenjualan(db *sql.DB) gin.HandlerFunc {
 
 		_, err := db.Exec(`
             UPDATE Penjualan
-            SET transaction_number = ?, marketing_id = ?, date = ?, cargo_fee = ?, total_balance = ?, grand_total = ?
+            SET TransactionNumber = ?, MarketingID = ?, date = ?, CargoFee = ?, TotalBalance = ?, GrandTotal = ?
             WHERE id = ?`,
 			penjualan.TransactionNumber, penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.GrandTotal, penjualan.ID,
 		)

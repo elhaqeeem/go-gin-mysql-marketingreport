@@ -19,4 +19,14 @@ CREATE TABLE Penjualan (
 );
 
 
+-- Migration script to create Pembayaran table
+
+CREATE TABLE Pembayaran (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    MarketingID INT NOT NULL,
+    Amount DECIMAL(10,2) NOT NULL,
+    PaymentDate DATE NOT NULL,
+    Status VARCHAR(255) NOT NULL,
+    FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE CASCADE
+);
 

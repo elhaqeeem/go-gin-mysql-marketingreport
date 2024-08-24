@@ -6,6 +6,7 @@ GOLANG (GIN) MICROSERVICE - MYSQL
 
 ```sh
 markerting-report/
+
 ├── main.go
 ├── config/
 │   └── config.go
@@ -22,6 +23,4 @@ markerting-report/
 │   └── pembayaran.go
 └── utils/
     └── response.go
-    
-```sh
-<h2>MARKETING REPORT</h2>
+ 

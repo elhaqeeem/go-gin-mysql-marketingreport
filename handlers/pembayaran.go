@@ -20,7 +20,7 @@ func CreatePembayaran(db *sql.DB) gin.HandlerFunc {
 		}
 
 		_, err := db.Exec(`
-            INSERT INTO Pembayaran (marketing_id, amount, payment_date, status)
+            INSERT INTO Pembayaran (MarketingID, Amount, PaymentDate, status)
             VALUES (?, ?, ?, ?)`,
 			p.MarketingID, p.Amount, p.PaymentDate, p.Status,
 		)
@@ -36,7 +36,7 @@ func CreatePembayaran(db *sql.DB) gin.HandlerFunc {
 // GetPembayaran retrieves all payments.
 func GetPembayaran(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		rows, err := db.Query("SELECT id, marketing_id, amount, payment_date, status FROM Pembayaran")
+		rows, err := db.Query("SELECT id, MarketingID, Amount, PaymentDate, status FROM Pembayaran")
 		if err != nil {
 			utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
 			return

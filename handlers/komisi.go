@@ -14,9 +14,9 @@ import (
 func GetKomisi(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		rows, err := db.Query(`
-            SELECT marketing_id, DATE_FORMAT(date, '%Y-%m') AS bulan, SUM(grand_total) AS omzet
+            SELECT MarketingID, DATE_FORMAT(date, '%Y-%m') AS bulan, SUM(GrandTotal) AS omzet
             FROM Penjualan
-            GROUP BY marketing_id, DATE_FORMAT(date, '%Y-%m')
+            GROUP BY MarketingID, DATE_FORMAT(date, '%Y-%m')
         `)
 		if err != nil {
 			utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
