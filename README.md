@@ -37,32 +37,30 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) dan m
    go run main.go
 
 ## Struktur File
-   marketing-report/
-      ```sh
-         ├
-         ├
-         ├── main.go
-         ├── config/
-         │   └── config.go
-         ├── db/
-         │   └── migration/
-         │       └── migration.sql
-         ├── models/
-         │   ├── marketing.go
-         │   ├── penjualan.go
-         │   ├── pembayaran.go
-         │   └── komisi.go
-         ├── handlers/
-         │   ├── marketing.go
-         │   ├── penjualan.go
-         │   ├── pembayaran.go
-         │   └── komisi.go
-         └── utils/
-            └── response.go
-         
+   ```sh
+      marketing-report/
+   ├── main.go
+   ├── config/
+   │   └── config.go
+   ├── db/
+   │   └── migration/
+   │       └── migration.sql
+   ├── models/
+   │   ├── marketing.go
+   │   ├── penjualan.go
+   │   ├── pembayaran.go
+   │   └── komisi.go
+   ├── handlers/
+   │   ├── komisi.go
+   │   └── pembayaran.go
+   └── utils/
+      └── response.go
+
+  
 
 
 ## Penggunaan
+   ```sh
 
 
 Rute API
