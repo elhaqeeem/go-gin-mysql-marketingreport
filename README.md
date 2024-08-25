@@ -37,8 +37,9 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) dan m
    go run main.go
 
 ## Struktur File
+1. **Marketing report:**
    ```sh
-      marketing-report/
+
    ├── main.go
    ├── config/
    │   └── config.go
@@ -60,12 +61,13 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) dan m
 
 
 ## Penggunaan
+1. **Route Api:**
    ```sh
-
 
 Rute API
 
 Marketing
+
 Buat Marketing
 Endpoint: POST /marketing
 Handler: handlers.CreateMarketing(db)
@@ -86,7 +88,9 @@ Hapus Marketing
 Endpoint: DELETE /marketing/:id
 Handler: handlers.DeleteMarketing(db)
 Deskripsi: Menghapus data marketing berdasarkan ID.
+
 Penjualan
+
 Buat Penjualan
 Endpoint: POST /penjualan
 Handler: handlers.CreatePenjualan(db)
@@ -107,7 +111,9 @@ Hapus Penjualan
 Endpoint: DELETE /penjualan/:id
 Handler: handlers.DeletePenjualan(db)
 Deskripsi: Menghapus data penjualan berdasarkan ID.
+
 Pembayaran dan Komisi
+
 Dapatkan Komisi
 Endpoint: GET /komisi
 Handler: handlers.GetKomisi(db)
