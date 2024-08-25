@@ -29,6 +29,9 @@ func main() {
 	r.GET("/komisi", handlers.GetKomisi(db))
 	r.POST("/pembayaran", handlers.CreatePembayaran(db))
 	r.GET("/pembayaran", handlers.GetPembayaran(db))
+	r.GET("/angsuran/:pembayaran_id", handlers.GetAllAngsuran(db))
+	r.GET("/angsuran/status/:pembayaran_id", handlers.CheckInstallmentStatus(db))
+
 	// Marketing CRUD routes
 	r.POST("/marketing", handlers.CreateMarketing(db))
 	r.GET("/marketing/:id", handlers.GetMarketing(db))

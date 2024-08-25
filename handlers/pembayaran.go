@@ -151,3 +151,163 @@ func GetPembayaran(db *sql.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, payments)
 	}
 }
+
+// GetAngsuranDetail retrieves the details of a specific installment payment by ID.
+func GetAngsuranDetail(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		angsuranIDStr := c.Param("id")
+		angsuranID, err := strconv.Atoi(angsuranIDStr)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusBadRequest, "invalid installment ID")
+			return
+		}
+
+		type AngsuranDetail struct {
+			ID                int       `json:"id"`
+			PembayaranID      int       `json:"pembayaran_id"`
+			AngsuranKe        int       `json:"angsuran_ke"`
+			JumlahAngsuran    float64   `json:"jumlah_angsurans"`
+			TanggalPembayaran time.Time `json:"tanggal_pembayaran"`
+		}
+
+		var detail AngsuranDetail
+		var tanggalPembayaranStr string
+		query := `
+			SELECT ID, PembayaranID, AngsuranKe, JumlahAngsuran, TanggalPembayaran
+			FROM PembayaranAngsuran
+			WHERE ID = ?`
+		if err := db.QueryRow(query, angsuranID).Scan(&detail.ID, &detail.PembayaranID, &detail.AngsuranKe, &detail.JumlahAngsuran, &tanggalPembayaranStr); err != nil {
+			if err == sql.ErrNoRows {
+				utils.JSONResponse(c, http.StatusNotFound, "installment not found")
+			} else {
+				utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+			}
+			return
+		}
+
+		// Correctly parse the date from the string.
+		detail.TanggalPembayaran, err = time.Parse("2006-01-02", tanggalPembayaranStr)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "invalid date format: "+tanggalPembayaranStr)
+			return
+		}
+
+		// Respond with the installment details.
+		c.JSON(http.StatusOK, detail)
+	}
+}
+
+// GetAllAngsuran retrieves all installment payments associated with a specific payment ID.
+func GetAllAngsuran(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		pembayaranIDStr := c.Param("pembayaran_id")
+		pembayaranID, err := strconv.Atoi(pembayaranIDStr)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusBadRequest, "invalid payment ID")
+			return
+		}
+
+		type Angsuran struct {
+			ID                int       `json:"id"`
+			PembayaranID      int       `json:"pembayaran_id"`
+			AngsuranKe        int       `json:"angsuran_ke"`
+			JumlahAngsuran    float64   `json:"jumlah_angsurans"`
+			TanggalPembayaran time.Time `json:"tanggal_pembayaran"`
+		}
+
+		var angsurans []Angsuran
+		query := `
+			SELECT ID, PembayaranID, AngsuranKe, JumlahAngsuran, TanggalPembayaran
+			FROM PembayaranAngsuran
+			WHERE PembayaranID = ?`
+
+		rows, err := db.Query(query, pembayaranID)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+			return
+		}
+		defer rows.Close()
+
+		for rows.Next() {
+			var angsuran Angsuran
+			var tanggalPembayaranStr string
+
+			if err := rows.Scan(&angsuran.ID, &angsuran.PembayaranID, &angsuran.AngsuranKe, &angsuran.JumlahAngsuran, &tanggalPembayaranStr); err != nil {
+				utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			// Parse the date from string
+			angsuran.TanggalPembayaran, err = time.Parse("2006-01-02", tanggalPembayaranStr)
+			if err != nil {
+				utils.JSONResponse(c, http.StatusInternalServerError, "invalid date format: "+tanggalPembayaranStr)
+				return
+			}
+
+			angsurans = append(angsurans, angsuran)
+		}
+
+		if err := rows.Err(); err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		// Respond with the installment data.
+		c.JSON(http.StatusOK, angsurans)
+	}
+}
+
+// CheckInstallmentStatus checks the payment status of the first installment for a given payment ID.
+func CheckInstallmentStatus(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		pembayaranIDStr := c.Param("pembayaran_id")
+
+		// Convert the parameter to an integer.
+		pembayaranID, err := strconv.Atoi(pembayaranIDStr)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusBadRequest, "invalid payment ID")
+			return
+		}
+
+		// Define the InstallmentStatus struct to include JumlahAngsuran.
+		type InstallmentStatus struct {
+			AngsuranKe        int     `json:"angsuran_ke"`
+			JumlahAngsuran    float64 `json:"jumlah_angsuran"`
+			TanggalPembayaran string  `json:"tanggal_pembayaran"` // Store as string first
+			Status            string  `json:"status"`
+		}
+
+		var installment InstallmentStatus
+		query := `
+			SELECT AngsuranKe, JumlahAngsuran, TanggalPembayaran
+			FROM PembayaranAngsuran
+			WHERE PembayaranID = ? AND AngsuranKe = 1`
+
+		row := db.QueryRow(query, pembayaranID)
+		err = row.Scan(&installment.AngsuranKe, &installment.JumlahAngsuran, &installment.TanggalPembayaran)
+		if err == sql.ErrNoRows {
+			// If there are no rows, it means the installment has not been found.
+			utils.JSONResponse(c, http.StatusNotFound, "installment not found")
+			return
+		} else if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		// Convert TanggalPembayaran string to time.Time
+		tanggalPembayaran, err := time.Parse("2006-01-02", installment.TanggalPembayaran)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "invalid date format")
+			return
+		}
+
+		// Determine the status based on the payment date.
+		if tanggalPembayaran.IsZero() {
+			installment.Status = "belum dibayar" // Not paid
+		} else {
+			installment.Status = "telah dibayar" // Paid
+		}
+
+		c.JSON(http.StatusOK, installment) // Respond with installment status
+	}
+}
