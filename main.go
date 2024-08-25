@@ -26,12 +26,6 @@ func main() {
 	r := gin.Default()
 
 	// Define routes here
-	r.GET("/komisi", handlers.GetKomisi(db))
-	r.POST("/pembayaran", handlers.CreatePembayaran(db))
-	r.GET("/pembayaran", handlers.GetPembayaran(db))
-	r.GET("/angsuran/:pembayaran_id", handlers.GetAllAngsuran(db))
-	r.GET("/angsuran/status/:pembayaran_id", handlers.CheckInstallmentStatus(db))
-
 	// Marketing CRUD routes
 	r.POST("/marketing", handlers.CreateMarketing(db))
 	r.GET("/marketing/:id", handlers.GetMarketing(db))
@@ -44,6 +38,12 @@ func main() {
 	r.GET("/penjualan", handlers.GetallPenjualan(db))
 	r.PUT("/penjualan/:id", handlers.UpdatePenjualan(db))
 	r.DELETE("/penjualan/:id", handlers.DeletePenjualan(db))
-	// Start the server
+	// get data
+	r.GET("/komisi", handlers.GetKomisi(db))
+	r.POST("/pembayaran", handlers.CreatePembayaran(db))
+	r.GET("/pembayaran", handlers.GetPembayaran(db))
+	r.GET("/angsuran/:pembayaran_id", handlers.GetAllAngsuran(db))
+	r.GET("/angsuran/status/:pembayaran_id", handlers.CheckInstallmentStatus(db))
+	// Start server
 	r.Run(":8080")
 }
