@@ -3,6 +3,7 @@ package handlers
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/models"
@@ -30,23 +31,131 @@ func CreateMarketing(db *sql.DB) gin.HandlerFunc {
 	}
 }
 
-// GetMarketing handles GET requests to fetch a marketing entry by ID.
 func GetMarketing(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 
+		// Step 1: Explain the query for debugging purposes
+		rows, err := db.Query("EXPLAIN SELECT id, name FROM marketing WHERE id = ?", id)
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "Error explaining query")
+			return
+		}
+		defer rows.Close()
+
+		// Collect explain output (all rows and columns)
+		var explainOutput []string
+		columns, err := rows.Columns()
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "Error fetching columns")
+			return
+		}
+
+		// Prepare a slice of interface{} to hold the values
+		values := make([]interface{}, len(columns))
+		for i := range values {
+			var value []byte
+			values[i] = &value
+		}
+
+		for rows.Next() {
+			if err := rows.Scan(values...); err != nil {
+				utils.JSONResponse(c, http.StatusInternalServerError, "Error reading explain data")
+				return
+			}
+
+			var rowOutput string
+			for i, val := range values {
+				// Convert []byte to string
+				rowOutput += fmt.Sprintf("%s: %s ", columns[i], string(*(val.(*[]byte))))
+			}
+			explainOutput = append(explainOutput, rowOutput)
+		}
+
+		// Optionally, log the explainOutput for analysis
+		fmt.Println("Query Explain Output:", explainOutput)
+
+		// Step 2: Execute the actual query to fetch the marketing entry
 		var marketing models.Marketing
-		row := db.QueryRow("SELECT id, name FROM marketing WHERE id = ?", id)
+		queryStmt := "SELECT id, name FROM marketing WHERE id = ?"
+		row := db.QueryRow(queryStmt, id)
 		if err := row.Scan(&marketing.ID, &marketing.Name); err != nil {
 			if err == sql.ErrNoRows {
 				utils.JSONResponse(c, http.StatusNotFound, "Marketing not found")
 			} else {
-				utils.JSONResponse(c, http.StatusInternalServerError, err.Error())
+				utils.JSONResponse(c, http.StatusInternalServerError, "Error fetching data")
 			}
 			return
 		}
 
+		// Return the successful response
 		c.JSON(http.StatusOK, marketing)
+	}
+}
+
+func GetAllMarketing(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Step 1: Explain the query for debugging purposes
+		rows, err := db.Query("EXPLAIN SELECT id, name FROM marketing")
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "Error explaining query")
+			return
+		}
+		defer rows.Close()
+
+		// Collect explain output (all rows and columns)
+		var explainOutput []string
+		columns, err := rows.Columns()
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "Error fetching columns")
+			return
+		}
+
+		// Prepare a slice of interface{} to hold the values
+		values := make([]interface{}, len(columns))
+		for i := range values {
+			var value []byte
+			values[i] = &value
+		}
+
+		for rows.Next() {
+			if err := rows.Scan(values...); err != nil {
+				utils.JSONResponse(c, http.StatusInternalServerError, "Error reading explain data")
+				return
+			}
+
+			var rowOutput string
+			for i := range values {
+				rowOutput += fmt.Sprintf("%s: %s ", columns[i], string(*(values[i].(*[]byte))))
+			}
+			explainOutput = append(explainOutput, rowOutput)
+		}
+
+		// Optionally, log the explainOutput for analysis
+		fmt.Println("Query Explain Output:", explainOutput)
+
+		// Step 2: Execute the actual query to fetch all marketing entries
+		rows, err = db.Query("SELECT id, name FROM marketing")
+		if err != nil {
+			utils.JSONResponse(c, http.StatusInternalServerError, "Error fetching data")
+			return
+		}
+		defer rows.Close()
+
+		// Prepare a slice to hold all marketing entries
+		var marketings []models.Marketing
+
+		for rows.Next() {
+			var marketing models.Marketing
+			if err := rows.Scan(&marketing.ID, &marketing.Name); err != nil {
+				utils.JSONResponse(c, http.StatusInternalServerError, "Error reading marketing data")
+				return
+			}
+			marketings = append(marketings, marketing)
+		}
+
+		// Return the successful response with all marketing entries
+		c.JSON(http.StatusOK, marketings)
 	}
 }
 

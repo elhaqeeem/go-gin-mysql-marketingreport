@@ -1,32 +1,29 @@
--- Migration to create Marketing table
-
+-- Create Marketing table with ID starting from 1
 CREATE TABLE marketing (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255) NOT NULL
-);
+) AUTO_INCREMENT = 1;
 
--- Migration to create Penjualan table
-
+-- Create Penjualan table with ID starting from 1
 CREATE TABLE Penjualan (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    TransactionNumber VARCHAR(255) NOT NULL,
+    TransactionNumber VARCHAR(255) NOT NULL UNIQUE,
     MarketingID INT,
-    Date DATE,
-    CargoFee DECIMAL(10,2),
-    TotalBalance DECIMAL(10,2),
-    GrandTotal DECIMAL(10,2),
-    FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE SET NULL
-);
+    Date DATE NOT NULL,
+    CargoFee DECIMAL(10,2) DEFAULT 0,
+    TotalBalance DECIMAL(10,2) NOT NULL,
+    GrandTotal DECIMAL(20,2) NOT NULL,
+    FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE SET NULL,
+    INDEX (TransactionNumber)
+) AUTO_INCREMENT = 1;
 
-
--- Migration script to create Pembayaran table
-
+-- Create Pembayaran table with ID starting from 1
 CREATE TABLE Pembayaran (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     MarketingID INT NOT NULL,
-    Amount DECIMAL(10,2) NOT NULL,
+    Amount DECIMAL(10,2) NOT NULL CHECK (Amount > 0),
     PaymentDate DATE NOT NULL,
     Status VARCHAR(255) NOT NULL,
-    FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE CASCADE
-);
-
+    FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE CASCADE,
+    INDEX (Status)
+) AUTO_INCREMENT = 1;

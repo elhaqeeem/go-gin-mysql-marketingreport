@@ -32,11 +32,13 @@ func main() {
 	// Marketing CRUD routes
 	r.POST("/marketing", handlers.CreateMarketing(db))
 	r.GET("/marketing/:id", handlers.GetMarketing(db))
+	r.GET("/marketing", handlers.GetAllMarketing(db))
 	r.PUT("/marketing/:id", handlers.UpdateMarketing(db))
 	r.DELETE("/marketing/:id", handlers.DeleteMarketing(db))
 	// CRUD routes for Penjualan
 	r.POST("/penjualan", handlers.CreatePenjualan(db))
 	r.GET("/penjualan/:id", handlers.GetPenjualan(db))
+	r.GET("/penjualan", handlers.GetallPenjualan(db))
 	r.PUT("/penjualan/:id", handlers.UpdatePenjualan(db))
 	r.DELETE("/penjualan/:id", handlers.DeletePenjualan(db))
 	// Start the server

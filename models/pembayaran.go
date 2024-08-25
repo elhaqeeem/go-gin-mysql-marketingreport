@@ -1,10 +1,13 @@
 package models
 
-// Pembayaran represents a record in the Pembayaran table.
+import "time"
+
+// Pembayaran represents a payment record.
 type Pembayaran struct {
-	ID          int     `json:"id"`
-	MarketingID int     `json:"marketing_id"`
-	Amount      float64 `json:"amount"`
-	PaymentDate string  `json:"payment_date"`
-	Status      string  `json:"status"`
+	ID            int       `json:"id"`
+	MarketingID   int       `json:"marketing_id"`
+	Amount        float64   `json:"amount"` // Change to float64
+	PaymentDate   time.Time `json:"payment_date"`
+	Status        string    `json:"status"`
+	PaymentMethod string    `json:"PaymentMethod"`
 }

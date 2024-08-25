@@ -28,6 +28,9 @@ func CreatePenjualan(db *sql.DB) gin.HandlerFunc {
 		}
 		p.TransactionNumber = transactionNumber
 
+		// Automatically calculate GrandTotal
+		p.GrandTotal = p.TotalBalance + p.CargoFee
+
 		_, err = db.Exec(`
             INSERT INTO Penjualan (TransactionNumber, MarketingID, Date, CargoFee, TotalBalance, GrandTotal)
             VALUES (?, ?, ?, ?, ?, ?)`,
@@ -47,10 +50,13 @@ func GetPenjualan(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var penjualan models.Penjualan
+
+		// Prepare the query
 		row := db.QueryRow(`
             SELECT id, TransactionNumber, MarketingID, Date, CargoFee, TotalBalance, GrandTotal
             FROM Penjualan WHERE id = ?`, id)
 
+		// Scan the result into the penjualan struct
 		err := row.Scan(&penjualan.ID, &penjualan.TransactionNumber, &penjualan.MarketingID, &penjualan.Date, &penjualan.CargoFee, &penjualan.TotalBalance, &penjualan.GrandTotal)
 		if err != nil {
 			if err == sql.ErrNoRows {
@@ -62,6 +68,41 @@ func GetPenjualan(db *sql.DB) gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, penjualan)
+	}
+}
+
+// get all data
+func GetallPenjualan(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Prepare the query to get all penjualan records
+		rows, err := db.Query(`
+            SELECT id, TransactionNumber, MarketingID, Date, CargoFee, TotalBalance, GrandTotal
+            FROM Penjualan`)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		defer rows.Close() // Ensure rows are closed after processing
+
+		var penjualans []models.Penjualan // Slice to hold all penjualan records
+		for rows.Next() {
+			var penjualan models.Penjualan
+			err := rows.Scan(&penjualan.ID, &penjualan.TransactionNumber, &penjualan.MarketingID, &penjualan.Date, &penjualan.CargoFee, &penjualan.TotalBalance, &penjualan.GrandTotal)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return
+			}
+			penjualans = append(penjualans, penjualan) // Append each record to the slice
+		}
+
+		// Check for any error during iteration
+		if err := rows.Err(); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		// Return the list of penjualan records
+		c.JSON(http.StatusOK, penjualans)
 	}
 }
 

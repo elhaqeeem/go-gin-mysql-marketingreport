@@ -16,7 +16,7 @@ func JSONResponse(c *gin.Context, statusCode int, message interface{}) {
 // GenerateTransactionNumber generates a new transaction number in the format TRX001, TRX002, etc.
 func GenerateTransactionNumber(db *sql.DB) (string, error) {
 	var lastTransactionNumber string
-	query := "SELECT transaction_number FROM Penjualan ORDER BY ID DESC LIMIT 1"
+	query := "SELECT TransactionNumber FROM Penjualan ORDER BY ID DESC LIMIT 1"
 	err := db.QueryRow(query).Scan(&lastTransactionNumber)
 	if err != nil && err != sql.ErrNoRows {
 		return "", fmt.Errorf("failed to retrieve last transaction number: %w", err)
