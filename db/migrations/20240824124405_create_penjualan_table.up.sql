@@ -27,3 +27,12 @@ CREATE TABLE Pembayaran (
     FOREIGN KEY (MarketingID) REFERENCES marketing(ID) ON DELETE CASCADE,
     INDEX (Status)
 ) AUTO_INCREMENT = 1;
+
+CREATE TABLE PembayaranAngsuran (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    PembayaranID INT NOT NULL,
+    AngsuranKe INT NOT NULL,
+    JumlahAngsuran FLOAT NOT NULL,
+    TanggalPembayaran DATE NOT NULL,
+    FOREIGN KEY (PembayaranID) REFERENCES Pembayaran(ID)
+)AUTO_INCREMENT = 1;

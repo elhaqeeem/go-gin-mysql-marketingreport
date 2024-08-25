@@ -1,16 +1,13 @@
-
-
-
-  
 # MARKETING REPORT
 
 ## Deskripsi
    Golang (gin) microservices + mysql
 
 ## Daftar Pustaka
-- [Install](#installation)
-- [Penggunaan](#usage)
-
+- [Install](#Install)
+- [Penggunaan](#Penggunaan)
+- [Struktur-file](#Struktur file)
+- [Endpoint](#Endpoint)
 
 ## Install
 To install and set up the project, follow these steps:
@@ -37,7 +34,8 @@ To install and set up the project, follow these steps:
    go mod tidy
    go run main.go
 
-6. Command to running 
+## Struktur file
+1. Command to running 
    ```sh
    markerting-report/
    
@@ -57,6 +55,8 @@ To install and set up the project, follow these steps:
     │   └── pembayaran.go
     └── utils/
         └── response.go
+
+## Endpoint
    
 
 
