@@ -114,9 +114,9 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Handler: handlers.UpdateMarketing(db)
    Deskripsi: Memperbarui data marketing berdasarkan ID.
       ```json
-         {
+      {
                "name": "Alfandy"
-         }
+      }
       ```
    Hapus Marketing
    Endpoint: DELETE /marketing/:id
@@ -149,12 +149,133 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: GET /penjualan/:id
    Handler: handlers.GetPenjualan(db)
    Deskripsi: Mengambil data penjualan berdasarkan ID.
-
+      ```json
+      {
+            "id": 1,
+            "TransactionNumber": "TRX001",
+            "MarketingID": 1,
+            "Date": "2023-05-22T00:00:00Z",
+            "CargoFee": 25000,
+            "TotalBalance": 3000000,
+            "GrandTotal": 3025000
+      }
+      ```
    Dapatkan Semua Penjualan
    Endpoint: GET /penjualan
    Handler: handlers.GetallPenjualan(db)
    Deskripsi: Mengambil semua data penjualan.
-
+      ```json
+      [
+         {
+            "id": 1,
+            "TransactionNumber": "TRX001",
+            "MarketingID": 1,
+            "Date": "2023-05-22T00:00:00Z",
+            "CargoFee": 25000,
+            "TotalBalance": 3000000,
+            "GrandTotal": 3025000
+         },
+         {
+            "id": 2,
+            "TransactionNumber": "TRX002",
+            "MarketingID": 3,
+            "Date": "2023-05-22T00:00:00Z",
+            "CargoFee": 25000,
+            "TotalBalance": 320000,
+            "GrandTotal": 345000
+         },
+         {
+            "id": 3,
+            "TransactionNumber": "TRX003",
+            "MarketingID": 1,
+            "Date": "2023-05-22T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 65000000,
+            "GrandTotal": 65000000
+         },
+         {
+            "id": 4,
+            "TransactionNumber": "TRX004",
+            "MarketingID": 1,
+            "Date": "2023-05-23T00:00:00Z",
+            "CargoFee": 10000,
+            "TotalBalance": 70000000,
+            "GrandTotal": 70010000
+         },
+         {
+            "id": 5,
+            "TransactionNumber": "TRX005",
+            "MarketingID": 2,
+            "Date": "2023-05-23T00:00:00Z",
+            "CargoFee": 10000,
+            "TotalBalance": 80000000,
+            "GrandTotal": 80010000
+         },
+         {
+            "id": 6,
+            "TransactionNumber": "TRX006",
+            "MarketingID": 3,
+            "Date": "2023-05-23T00:00:00Z",
+            "CargoFee": 12000,
+            "TotalBalance": 44000000,
+            "GrandTotal": 44012000
+         },
+         {
+            "id": 7,
+            "TransactionNumber": "TRX007",
+            "MarketingID": 1,
+            "Date": "2023-06-01T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 75000000,
+            "GrandTotal": 75000000
+         },
+         {
+            "id": 8,
+            "TransactionNumber": "TRX008",
+            "MarketingID": 2,
+            "Date": "2023-06-02T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 85000000,
+            "GrandTotal": 85000000
+         },
+         {
+            "id": 9,
+            "TransactionNumber": "TRX009",
+            "MarketingID": 2,
+            "Date": "2023-06-01T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 175000000,
+            "GrandTotal": 175000000
+         },
+         {
+            "id": 10,
+            "TransactionNumber": "TRX010",
+            "MarketingID": 3,
+            "Date": "2023-06-01T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 75000000,
+            "GrandTotal": 75000000
+         },
+         {
+            "id": 11,
+            "TransactionNumber": "TRX011",
+            "MarketingID": 2,
+            "Date": "2023-06-01T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 750020000,
+            "GrandTotal": 750020000
+         },
+         {
+            "id": 12,
+            "TransactionNumber": "TRX012",
+            "MarketingID": 3,
+            "Date": "2023-06-01T00:00:00Z",
+            "CargoFee": 0,
+            "TotalBalance": 130000000,
+            "GrandTotal": 130000000
+         }
+      ]
+      ```
    Perbarui Penjualan
    Endpoint: PUT /penjualan/:id
    Handler: handlers.UpdatePenjualan(db)
