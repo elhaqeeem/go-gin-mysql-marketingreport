@@ -92,20 +92,20 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: GET /marketing
    Handler: handlers.GetAllMarketing(db)
    Deskripsi: Mengambil semua data marketing.
-   ```json
+      ```json
       [
-         {
-            "id": 1,
-            "name": "Alfandy"
-         },
-         {
-            "id": 2,
-            "name": "Mery"
-         },
-         {
-            "id": 3,
-            "name": "Danang"
-         }
+            {
+               "id": 1,
+               "name": "Alfandy"
+            },
+            {
+               "id": 2,
+               "name": "Mery"
+            },
+            {
+               "id": 3,
+               "name": "Danang"
+            }
       ]
 
       ```
@@ -124,7 +124,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Deskripsi: Menghapus data marketing berdasarkan ID.
       ```json
       {
-            "name": "Alfandy"
+               "name": "Alfandy"
       }
       ```
 
@@ -138,10 +138,10 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
      
       ```json
       {
-      "MarketingID": 1,
-      "Date": "2023-05-22",
-      "CargoFee": 25000,
-      "TotalBalance": 3000000,
+            "MarketingID": 1,
+            "Date": "2023-05-22",
+            "CargoFee": 25000,
+            "TotalBalance": 3000000,
       }
       ```
 
