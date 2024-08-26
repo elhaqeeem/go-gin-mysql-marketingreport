@@ -367,13 +367,106 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: GET /pembayaran
    Handler: handlers.GetPembayaran(db)
    Deskripsi: Mengambil semua data pembayaran.
-
+      ```json
+      [
+  
+         {
+            "id": 10,
+            "marketing_id": 2,
+            "amount": 250000,
+            "payment_date": "2023-05-22T00:00:00Z",
+            "status": "completed",
+            "payment_method": "debet"
+         },
+         {
+            "id": 11,
+            "marketing_id": 2,
+            "amount": 650000,
+            "payment_date": "2023-05-22T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         },
+         {
+            "id": 12,
+            "marketing_id": 2,
+            "amount": 30000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "completed",
+            "payment_method": "debet"
+         },
+         {
+            "id": 13,
+            "marketing_id": 2,
+            "amount": 30000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "completed",
+            "payment_method": "debet"
+         },
+         {
+            "id": 14,
+            "marketing_id": 3,
+            "amount": 130000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         },
+         {
+            "id": 15,
+            "marketing_id": 3,
+            "amount": 300000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         },
+         {
+            "id": 16,
+            "marketing_id": 3,
+            "amount": 300000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         },
+         {
+            "id": 17,
+            "marketing_id": 1,
+            "amount": 100000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         },
+         {
+            "id": 18,
+            "marketing_id": 1,
+            "amount": 500000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+         }
+      ]
+      ```
    Dapatkan Semua Angsuran untuk Pembayaran Tertentu
    Endpoint: GET /angsuran/:pembayaran_id
    Handler: handlers.GetAllAngsuran(db)
    Deskripsi: Mengambil semua data angsuran untuk pembayaran tertentu berdasarkan ID pembayaran.
-
+      ```json
+      {
+            "id": 18,
+            "marketing_id": 1,
+            "amount": 500000,
+            "payment_date": "2024-08-26T00:00:00Z",
+            "status": "pending",
+            "payment_method": "credit"
+      }
+      ```
    Cek Status Angsuran Pertama untuk Pembayaran Tertentu
    Endpoint: GET /angsuran/status/:pembayaran_id
    Handler: handlers.CheckInstallmentStatus(db)
    Deskripsi: Memeriksa status pembayaran dari angsuran pertama untuk ID pembayaran tertentu.
+     ```json
+      {
+            "angsuran_ke": 1,
+            "jumlah_angsuran": 100000,
+            "tanggal_pembayaran": "2024-08-26",
+            "status": "telah dibayar"
+      }
+     ```
