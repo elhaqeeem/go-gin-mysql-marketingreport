@@ -117,7 +117,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
          {
                "name": "Alfandy"
          }
-         ```
+      ```
    Hapus Marketing
    Endpoint: DELETE /marketing/:id
    Handler: handlers.DeleteMarketing(db)
