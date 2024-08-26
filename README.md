@@ -8,6 +8,10 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
 - [Struktur File](#struktur-file)
 - [Penggunaan](#penggunaan)
 
+
+![Alt text](media/1.png)
+
+
 ## Instalasi
    Untuk menginstal dan mengatur proyek, ikuti langkah-langkah berikut:
 
@@ -477,3 +481,4 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
             "status": "telah dibayar"
       }
      ```
+
