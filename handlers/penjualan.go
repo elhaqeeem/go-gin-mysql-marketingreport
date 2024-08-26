@@ -109,17 +109,20 @@ func GetallPenjualan(db *sql.DB) gin.HandlerFunc {
 // UpdatePenjualan updates an existing Penjualan record
 func UpdatePenjualan(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var penjualan models.Penjualan
-		if err := c.ShouldBindJSON(&penjualan); err != nil {
+		var p models.Penjualan
+		if err := c.ShouldBindJSON(&p); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 			return
 		}
 
+		// Automatically calculate GrandTotal
+		p.GrandTotal = p.TotalBalance + p.CargoFee
+
 		_, err := db.Exec(`
             UPDATE Penjualan
-            SET  MarketingID = ?, Date = ?, CargoFee = ?, TotalBalance = ?
+            SET MarketingID = ?, Date = ?, CargoFee = ?, TotalBalance = ?, GrandTotal = ?
             WHERE id = ?`,
-			penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.ID,
+			p.MarketingID, p.Date, p.CargoFee, p.TotalBalance, p.GrandTotal, p.ID,
 		)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

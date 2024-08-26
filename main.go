@@ -1,19 +1,22 @@
 package main
 
 import (
+	"log"
+
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/config" // Import config package correctly
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/handlers"
+	"github.com/joho/godotenv"
 
 	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// Load environment variables
-	//err := godotenv.Load()
-	//if err != nil {
-	//	log.Fatalf("Error loading .env file")
-	//}
+	//Load environment variables
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 
 	// Initialize the database
 	gin.SetMode(gin.ReleaseMode)
