@@ -73,11 +73,20 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: POST /marketing
    Handler: handlers.CreateMarketing(db)
    Deskripsi: Menambahkan catatan marketing baru.
-
+      ```json
+      {
+            "name": "Alfandy"
+      }
+      ```
    Dapatkan Marketing berdasarkan ID
    Endpoint: GET /marketing/:id
    Handler: handlers.GetMarketing(db)
-
+      ```json
+      {
+            "id": 1,
+            "name": "Alfandy"
+      }
+      ```
    Deskripsi: Mengambil data marketing berdasarkan ID.
    Dapatkan Semua Marketing
    Endpoint: GET /marketing
@@ -95,7 +104,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
             "id": 3,
             "name": "Danang"
          }
-         ]
+      ]
 
       ```
          
