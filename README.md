@@ -362,7 +362,14 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: POST /pembayaran
    Handler: handlers.CreatePembayaran(db)
    Deskripsi: Membuat catatan pembayaran baru.
-
+      ```json
+      {
+            "marketing_id": 2,
+            "amount": 650000,
+            "jumlah_angsuran": "3",
+            "payment_method": "credit"
+      }
+      ```
    Dapatkan Semua Pembayaran
    Endpoint: GET /pembayaran
    Handler: handlers.GetPembayaran(db)
