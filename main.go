@@ -4,6 +4,7 @@ import (
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/config" // Import config package correctly
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/handlers"
 
+	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,8 +21,9 @@ func main() {
 	defer db.Close()
 
 	// Set up Gin router
-	r := gin.Default()
 
+	r := gin.Default()
+	r.Use(cors.Default())
 	// Define routes here
 	// Marketing CRUD routes
 	r.POST("/marketing", handlers.CreateMarketing(db))
