@@ -9,7 +9,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
 - [Penggunaan](#penggunaan)
 
 
-![Alt text](media/1.png)
+<img src="media/1.png" alt="Alt Text" width="500" height="300">
 
 
 ## Instalasi
