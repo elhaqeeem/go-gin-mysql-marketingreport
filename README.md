@@ -280,12 +280,32 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Endpoint: PUT /penjualan/:id
    Handler: handlers.UpdatePenjualan(db)
    Deskripsi: Memperbarui data penjualan berdasarkan ID.
-
+      ```json
+      {
+         {
+            "id": 1,
+            "MarketingID": 1,
+            "Date": "2023-05-22",
+            "CargoFee": 25000,
+            "TotalBalance": 3000000,
+         }
+      }
+      ```
    Hapus Penjualan
    Endpoint: DELETE /penjualan/:id
    Handler: handlers.DeletePenjualan(db)
    Deskripsi: Menghapus data penjualan berdasarkan ID.
-
+      ```json
+      {
+         {
+            "id": 1,
+            "MarketingID": 1,
+            "Date": "2023-05-22",
+            "CargoFee": 25000,
+            "TotalBalance": 3000000,
+         }
+      }
+      ```
    Pembayaran dan Komisi
 
    Dapatkan Komisi
