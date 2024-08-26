@@ -30,7 +30,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    $ apt-get install -y migrate
    (untuk linux)
 
-3. **Perintah untuk menjalankan::**
+4. **Perintah untuk menjalankan::**
    ```sh
    migrate -path db/migrations -database "mysql://username:password@tcp(host:port)/namadb" up
    go run main.go
@@ -81,9 +81,8 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    Deskripsi: Mengambil data marketing berdasarkan ID.
    Dapatkan Semua Marketing
    Endpoint: GET /marketing
-1. **Sample:**
-   ```sh
-            [
+   ```json
+      [
          {
             "id": 1,
             "name": "Alfandy"
@@ -98,6 +97,8 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
          }
          ]
 
+      ```
+         
    Handler: handlers.GetAllMarketing(db)
    Deskripsi: Mengambil semua data marketing.
 
