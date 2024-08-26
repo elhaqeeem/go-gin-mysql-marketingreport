@@ -307,12 +307,57 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
       }
       ```
    Pembayaran dan Komisi
-
+      
    Dapatkan Komisi
    Endpoint: GET /komisi
    Handler: handlers.GetKomisi(db)
    Deskripsi: Mengambil data komisi.
-
+      ```json
+      [
+         {
+            "marketing_id": 1,
+            "bulan": "2023-05",
+            "omzet": 138035000,
+            "komisi_persen": 2.5,
+            "komisi_nominal": 3450875
+         },
+         {
+            "marketing_id": 3,
+            "bulan": "2023-05",
+            "omzet": 44357000,
+            "komisi_persen": 0,
+            "komisi_nominal": 0
+         },
+         {
+            "marketing_id": 2,
+            "bulan": "2023-05",
+            "omzet": 80010000,
+            "komisi_persen": 0,
+            "komisi_nominal": 0
+         },
+         {
+            "marketing_id": 1,
+            "bulan": "2023-06",
+            "omzet": 75000000,
+            "komisi_persen": 0,
+            "komisi_nominal": 0
+         },
+         {
+            "marketing_id": 2,
+            "bulan": "2023-06",
+            "omzet": 1010020000,
+            "komisi_persen": 10,
+            "komisi_nominal": 101002000
+         },
+         {
+            "marketing_id": 3,
+            "bulan": "2023-06",
+            "omzet": 205000000,
+            "komisi_persen": 5,
+            "komisi_nominal": 10250000
+         }
+      ]
+      ```
    Buat Pembayaran
    Endpoint: POST /pembayaran
    Handler: handlers.CreatePembayaran(db)
