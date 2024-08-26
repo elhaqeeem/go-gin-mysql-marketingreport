@@ -117,7 +117,7 @@ func UpdatePenjualan(db *sql.DB) gin.HandlerFunc {
 
 		_, err := db.Exec(`
             UPDATE Penjualan
-            SET TransactionNumber = ?, MarketingID = ?, date = ?, CargoFee = ?, TotalBalance = ?, GrandTotal = ?
+            SET  MarketingID = ?, date = ?, CargoFee = ?, TotalBalance = ?
             WHERE id = ?`,
 			penjualan.TransactionNumber, penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.GrandTotal, penjualan.ID,
 		)
