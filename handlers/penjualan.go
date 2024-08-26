@@ -117,9 +117,9 @@ func UpdatePenjualan(db *sql.DB) gin.HandlerFunc {
 
 		_, err := db.Exec(`
             UPDATE Penjualan
-            SET  MarketingID = ?, date = ?, CargoFee = ?, TotalBalance = ?
+            SET  MarketingID = ?, Date = ?, CargoFee = ?, TotalBalance = ?
             WHERE id = ?`,
-			penjualan.TransactionNumber, penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.GrandTotal, penjualan.ID,
+			penjualan.MarketingID, penjualan.Date, penjualan.CargoFee, penjualan.TotalBalance, penjualan.ID,
 		)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
