@@ -9,9 +9,9 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
 - [Penggunaan](#penggunaan)
 
 
-<img src="media/1.png" alt="Alt Text" width="400" height="150">
-<img src="media/2.png" alt="Alt Text" width="400" height="150">
-<img src="media/3.png" alt="Alt Text" width="400" height="150">
+<img src="media/1.png" alt="Alt Text" width="300" height="150" >
+<img src="media/2.png" alt="Alt Text" width="300" height="150" >
+<img src="media/3.png" alt="Alt Text" width="300" height="150" >
 
 
 ## Instalasi
