@@ -6,11 +6,18 @@ import (
 
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/config"
 	"github.com/elhaqeeem/go-gin-mysql-marketingreport/handlers"
+
 	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	// Load environment variables
+	//err := godotenv.Load()
+	//if err != nil {
+	//	log.Fatalf("Error loading .env file")
+	//}
+
 	// Initialize the database
 	gin.SetMode(gin.ReleaseMode)
 	db := config.InitDB()
@@ -19,7 +26,8 @@ func main() {
 	// Start React app using npm
 	cmd := exec.Command("npm", "start")
 	cmd.Dir = "./frontend" // Change directory to the frontend folder
-	if err := cmd.Start(); err != nil {
+	err = cmd.Start()
+	if err != nil {
 		log.Fatalf("Failed to start React app: %v", err)
 	}
 	log.Println("React app started")
@@ -28,7 +36,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 
-	// Define routes here
+	// Define routes here (your existing routes)
 	r.POST("/marketing", handlers.CreateMarketing(db))
 	r.GET("/marketing/:id", handlers.GetMarketing(db))
 	r.GET("/marketing", handlers.GetAllMarketing(db))
@@ -63,7 +71,5 @@ func main() {
 	})
 
 	// Start server
-	if err := r.Run(":8080"); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-	}
+	r.Run(":8080")
 }
