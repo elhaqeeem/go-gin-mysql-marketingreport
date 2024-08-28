@@ -23,8 +23,11 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
 2. **salin file .env :**
    ```sh
    cp .env.backup .env
-
-3. **install migrate go untuk windows / mac0s / linux::**
+3. **buat file .env di folder frontend:**
+   ```sh
+   REACT_APP_API_URL=
+   NODE_ENV=production  
+4. **install migrate go untuk windows / mac0s / linux::**
    ```sh
    $ scoop install migrate (untuk windows)
 
@@ -36,7 +39,7 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    $ apt-get install -y migrate
    (untuk linux)
 
-4. **Perintah untuk menjalankan::**
+5. **Perintah untuk menjalankan::**
    ```sh
    migrate -path db/migrations -database "mysql://username:password@tcp(host:port)/namadb" up
    go run main.go
@@ -48,6 +51,8 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    ├── main.go
    ├── config/
    │   └── config.go
+   ├── frontend/
+   │   └── react-app
    ├── db/
    │   └── migration/
    │       └── migration.sql
