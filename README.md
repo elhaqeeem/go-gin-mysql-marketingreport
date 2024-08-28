@@ -1,7 +1,7 @@
 # MARKETING REPORT
 
 ## Deskripsi
-Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , menggunakan MySQL sebagai basis datanya dan React sebagai frondend 
+Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , menggunakan MySQL sebagai basis datanya dan React sebagai frontend 
 
 ## Daftar Pustaka
 - [Instalasi](#instalasi)
@@ -39,7 +39,13 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
    $ apt-get install -y migrate
    (untuk linux)
 
-5. **Perintah untuk menjalankan::**
+5. **install node di folder frontend::**
+   ```sh
+   cd frontend
+   npm install
+   cd ../
+
+6. **Perintah untuk menjalankan::**
    ```sh
    migrate -path db/migrations -database "mysql://username:password@tcp(host:port)/namadb" up
    go run main.go
@@ -75,8 +81,6 @@ Proyek ini adalah aplikasi mikroservices yang dibangun dengan Golang (Gin) , men
 ## Penggunaan
 1. **Route Api:**
    
-
-   Rute API
 
    Marketing
 
