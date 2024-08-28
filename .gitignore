@@ -1,3 +1,5 @@
 .env
 .dummy
 /frontend/node_modules
+/frontend/.env
+main.go.backup
